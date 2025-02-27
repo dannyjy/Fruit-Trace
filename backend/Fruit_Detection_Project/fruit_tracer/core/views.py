@@ -1,20 +1,31 @@
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-import json
-import joblib
 import os
+import cv2
+import numpy as np
 from django.conf import settings
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.parsers import MultiPartParser, FormParser
+from .ml_model.fruit import detect_and_classify
 
-model_path = os.path.join(settings.BASE_DIR, 'my_ml_app', 'ml_model', 'model.pkl')
-model = joblib.load(model_path)
 
-@csrf_exempt
-def predict(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            prediction = model.predict([data['features']])
-            return JsonResponse({'prediction': prediction.tolist()})
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=400)
-    return JsonResponse({'error': 'Invalid request method'}, status=405)
+class ImageUploadView(APIView):
+    parser_classes = (MultiPartParser, FormParser)
+
+    def post(self, request, *args, **kwargs):
+        if 'image' not in request.FILES:
+            return Response({"error": "No image provided"}, status=400)
+
+        image_file = request.FILES['image']
+        image_path = os.path.join(settings.MEDIA_ROOT, "uploaded_image.jpg")
+
+        with open(image_path, 'wb+') as destination:
+            for chunk in image_file.chunks():
+                destination.write(chunk)
+
+        img = cv2.imread(image_path)
+        if img is None:
+            return Response({"error": "Invalid image file"}, status=400)
+
+        result = classify_fruit(img)
+
+        return Response({"message": result})
