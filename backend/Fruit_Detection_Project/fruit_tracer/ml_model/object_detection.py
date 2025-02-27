@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 import cv2
 
-model= YOLO("ml_model/Yolo_weights.pt")
+model= YOLO("Yolo_weights.pt")
 
 def detect_fruits(image_path):
     image=cv2.imread(image_path)
