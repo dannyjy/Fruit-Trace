@@ -1,18 +1,18 @@
-from tensorflow.keras.preprpcessing import image 
-import numpy as np 
+import cv2
+import numpy as np
+import tensorflow as tf
 
-model=tf.keras.modes.load_model(fruit_model.h5)
+model = tf.keras.models.load_model("fruit_model.h5")
 
-def classify_fruit(image_path):
-    img=image.load_image(image_path, target_size(64,64))
-    img_array=image.img_to_array(img)
-    img_array=np.expand_dims(img_array, axis=0)
-    img_array/=255.0
+class_names = ["Not Edible", "Edible"]
 
-    prediction=model.predict(img_array)
-    class_idx=np.argmax(prediction, axis=1)
+def classify_fruit(img_array):
+    """Predicts if a given fruit is edible or not"""
+    img_array = cv2.resize(img_array, (64, 64))
+    img_array = np.expand_dims(img_array, axis=0)
+    img_array = img_array / 255.0
 
-    class_names=[]
-    fruit_type=class_names[class_idx[0]]
+    prediction = model.predict(img_array)
+    class_idx = np.argmax(prediction, axis=1)[0]
 
-    return fruit_type
+    return class_names[class_idx]

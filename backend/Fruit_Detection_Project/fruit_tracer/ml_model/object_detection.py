@@ -1,17 +1,14 @@
 from ultralytics import YOLO
-import cv2
 
-model= YOLO("Yolo_weights.pt")
+# Load YOLO model once
+Yolo_model = YOLO(r"yolov8n.pt")
 
 def detect_fruits(image_path):
-    image=cv2.imread(image_path)
-    results=model.predict(img)
-    
-    detections=[]
+    results = Yolo_model.predict(image_path)
+
+    detected_boxes = []
     for r in results:
         for box in r.boxes.xyxy:
-            x1, y1, x2, y2 = map(int, box.tolist())
-            
-            detections.append({"x1": x1, "y1":y1, "x2":x2, "y2":y2})
-            
-    return detections        
+            detected_boxes.append(box)
+
+    return detected_boxes  # Returns list of (x1, y1, x2, y2)
