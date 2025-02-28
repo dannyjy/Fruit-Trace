@@ -1,7 +1,7 @@
 import axois from 'axios';
 import { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image,  } from 'react-native'
-import grapFruit from '@/assets/images/fruit/graps.jpg'
+
 
 const Card = ({imageUrl,name,details}) => {
     // const [data,setData] = useState();
@@ -24,7 +24,7 @@ const Card = ({imageUrl,name,details}) => {
         <Image source={imageUrl} style={style.image}></Image>
         <View style={style.lowerSection}>
             <Text style={style.titlefontSize}>{name}</Text>
-            <Text style={style.description}>{details}</Text>
+            <Text style={style.description}>Blueberries are a widely distributed and widespread group of perennial flowering plants with blue or purple berries. They are classified in the section Cyanococcus with the genus Vaccinium.[1] Commercial blueberries—both wild (lowbush) and cultivated (highbush)—are all native to North America. The highbush varieties were introduced into Europe during the 1930s.</Text>
         </View>
     </View>
   )
@@ -35,10 +35,15 @@ export default Card
 
 const style = StyleSheet.create({
     cardMain: {
-        marginTop: 10,
+        height:300,
+        textOverflow:'ellipsis',
+        marginTop: 30,
         borderRadius: 20,
-        overflow: 'hidden',
-        backgroundColor: "#200000",
+        overflow:'scroll',
+        backgroundColor: "black",
+        borderColor:'white',
+        borderWidth:1,
+        overflow:"hidden"
     },
     image:{
         width: "100%",
@@ -49,12 +54,19 @@ const style = StyleSheet.create({
         paddingVertical: 15,
     },
     description:{
-        color: 'white',
-        fontSize: 18,
-        paddingVertical: 20
+        color: '#777',
+        fontSize: 13,
+        paddingVertical: 20,
+        overflow:"hidden"
     },
     titlefontSize:{
-        fontSize: 30,
-        color: 'white',
+        color:'white',
+        borderWidth:1,
+        borderColor:'white',
+        padding:5,
+        borderRadius:15,
+        width:90,
+        textAlign:'center',
+        fontWeight:'700'
     }
 })

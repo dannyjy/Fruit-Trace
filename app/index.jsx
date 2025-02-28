@@ -1,43 +1,36 @@
-import { Text, View, Image, StyleSheet,FlatList } from "react-native";
-import { Animated } from "react-native";
+import { Text, View, Image, StyleSheet, ScrollView , } from "react-native";
 import Card from '../components/ui/card'
-import menu from '@/assets/images/favicon.png'
-import { fruitData } from "@/components/data";
-import InputData from "@/components/InputData";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Link } from "expo-router";
 
+//images
+import icons from "@/constants/icons";
+import images from '@/constants/images';
 export default function Index() {
   return (
-    <View>
+    <SafeAreaView style={{width:'100%' , height:'100%' , backgroundColor:'black'}}>
       <View style={{paddingHorizontal: 15}} >
         <View style={style.second}>
-          <Image source={menu} style={style.historyIcon}/>
-          <Text style={style.AppName}>FruitTrace</Text>
+        <Link href={'/history'} style={{color:'white' , backgroundColor:'white' , borderWidth:1,borderColor:'white',borderStyle:'solid' , borderRadius:20,padding:10}}><Image source={icons.history} style={{width:30,height:30 , borderRadius:'100%'}}/></Link>
+        <Image source={icons.logo} style={{width:50,height:50 }}/>
         </View>
-        <InputData/>
-      </View>
-      <View style={style.sectionView}>
         <View>
-          <Text style={{paddingTop: 18,fontSize: 25}}>Just Uploaded</Text>
-          <Card 
-          imageUrl="assets/images/fruit/kewe.jpg" 
-          name="Kewe" 
-          details="Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quo saepe sint, cum iure sequi dolores labore eos esse quisquam cupiditate repellendus reiciendis deserunt temporibus incidunt praesentium adipisci laboriosam beatae."
-          />
+          <Text style={{color:'white' , fontSize:25 , fontWeight:'bold' , marginVertical:20}}>Welcome to Fruit Trace <Image source={icons.Hi} style={{width:30 , height:30}}/></Text>
+          <Text style={{color:'gray' , fontSize:13}}>Eat What You Know And Stay Safe{'  '}:);</Text>
         </View>
-        <Text style={{paddingTop: 18,fontSize: 25}}>Exiting Data</Text>
-        <FlatList
-          data={fruitData}
-          renderItem={({item}) =>(
-            <Card
-            name={item.name}
-            details={item.description}
-            imageUrl={item.image}
-            />
-          )}
-          keyExtractor={(item) => item.id}
-          />
+        <View style={{marginVertical:20,flexDirection:'row' , alignItems:'center' , gap:20}}>
+          <Link href={'/camera'} style={{color:'white' , backgroundColor:'white' , borderWidth:1,borderColor:'white',borderStyle:'solid' , borderRadius:20,padding:10}}><Image source={icons.camera} style={{width:30,height:30}}/></Link>
+          <Link href={'/upload'} style={{color:'white' , backgroundColor:'white' , borderWidth:1,borderColor:'white',borderStyle:'solid' , borderRadius:20,padding:10}}><Image source={icons.upload} style={{width:30,height:30}}/></Link>
+        </View>
       </View>
-    </View>
+      <ScrollView style={{flex:1}}>
+        <Text style={{fontSize:20 , color:'white' , fontWeight:'bold' , paddingHorizontal:5}}>Know More About Fruits{'  '}<Image source={icons.apple} style={{width:30,height:30, }}/></Text>
+        <Card name={'blueBerry'} imageUrl={images.blue_berry}/>
+        <Card name={'Strawberry'} imageUrl={images.strawberry}/>
+        <Card name={'Kiwi'} imageUrl={images.kiwi}/>
+        <Card name={'Apple'} imageUrl={images.apples}/>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
