@@ -7,10 +7,7 @@ class FruitDetector:
         self.model = YOLO(model_path)
         self.fruit_names = {
             0: "apple",
-            # Add more fruit names here, based on your model's classes.
-            # 1: "banana",
-            # 2: "orange",
-            47:"apple" #example based on your output.
+            47:"apple" 
         }
 
     def detect_fruits(self, image_path):
