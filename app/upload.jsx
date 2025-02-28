@@ -78,15 +78,16 @@ const index = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, gap: 20 , backgroundColor:'white'}}>
-      <View style={{ alignItems:'center' , flexDirection:'row' , justifyContent:'space-between' , paddingHorizontal:10 , width:'90%',marginHorizontal:20}}>
+      <View style={{ paddingHorizontal:15 , paddingTop: 15}}>
         <Link href={'/'}><Image source={icons.arrow} style={{width:20 , height:20}}/></Link>
-        <Button disabled={put} onPress={() => selectImage(true)} title='Select Image' />
       </View>
       <ScrollView>
         {image && (
-          <Image key={image} source={{ uri: image }} style={{ width: 300, height: 300, alignSelf: 'center' ,borderRadius: 25}} />
+          <Image key={image} source={{ uri: image }} style={{ width: '100%', height: 300, alignSelf: 'center' ,borderRadius: 10}} />
         )}
-        
+        <View style={{margin: 10}}>
+          <Button disabled={put} onPress={() => selectImage(true)} title='Select Image' />
+        </View>
       </ScrollView>
       {image && <Link href={'/'} style={{width:'100%',flex:1, marginLeft:'45%', alignItems:'center', position:'absolute' , bottom:30}}><Image source={icons.upload} style={{width:40, height:40,alignItems:'center' , justifyContent:'center'}}/></Link>}
     </SafeAreaView>

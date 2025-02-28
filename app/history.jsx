@@ -27,8 +27,7 @@ const renderHistory = fruitData.map((item) => (
 const styles = StyleSheet.create({
   main:{
     flex: 1,
-    padding: 10,
-    paddingBottom: 20,
+    padding: 15,
     backgroundColor: '#0E0D0A',
   }
 })
