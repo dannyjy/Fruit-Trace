@@ -1,17 +1,12 @@
-import { Text, View, Image, StyleSheet,FlatList, Button, ScrollView , } from "react-native";
-import { Animated } from "react-native";
+import { Text, View, Image, StyleSheet, ScrollView} from "react-native";
 import Card from '../components/ui/card'
-import menu from '@/assets/images/favicon.png'
-import { fruitData } from "@/components/data";
-import InputData from "@/components/InputData";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import { Link } from "expo-router";
 
 //images
 import icons from "@/constants/icons";
 import images from '@/constants/images';
-export default function Index() {
+const Index = () => {
   return (
     <SafeAreaView style={{width:'100%' , height:'100%' , backgroundColor:'black'}}>
       <View style={{paddingHorizontal: 15}} >
@@ -38,6 +33,8 @@ export default function Index() {
     </SafeAreaView>
   );
 }
+
+export default Index;
 
 
 const style = StyleSheet.create({
