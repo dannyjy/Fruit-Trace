@@ -5,7 +5,7 @@ export default function RootLayout() {
     <Slot>
       <Tabs>
         <Tabs.Screen name="index"/>
-        <Tabs.Screen name="historyPage" />
+        <Tabs.Screen name="history" />
         <Tabs.Screen name="Results"/>
         <Tabs.Screen name="Explore"/>
       </Tabs>

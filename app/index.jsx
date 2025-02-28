@@ -1,23 +1,43 @@
-import { Text, View, Image, StyleSheet } from "react-native";
-import history from '@/assets/images/history-svgrepo-com.png';
-import InputSection from "@/components/InputSection";
+import { Text, View, Image, StyleSheet,FlatList, Button, ScrollView , } from "react-native";
+import { Animated } from "react-native";
+import Card from '../components/ui/card'
+import menu from '@/assets/images/favicon.png'
+import { fruitData } from "@/components/data";
+import InputData from "@/components/InputData";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 import { Link } from "expo-router";
 
-
+//images
+import icons from "@/constants/icons";
+import images from '@/constants/images';
 export default function Index() {
   return (
-    <View style={{flex: 1,backgroundColor: '#0E0D0A'}}>
-      <View style={style.second}>
-        <Text style={style.AppName}>FruitTrace</Text>
-        <Link href="/historyPage">
-          <Image source={history} style={style.historyIcon}/>
-        </Link>
+    <SafeAreaView style={{width:'100%' , height:'100%' , backgroundColor:'black'}}>
+      <View style={{paddingHorizontal: 15}} >
+        <View style={style.second}>
+        <Link href={'/camera'} style={{color:'white' , backgroundColor:'white' , borderWidth:1,borderColor:'white',borderStyle:'solid' , borderRadius:20,padding:10}}><Image source={icons.history} style={{width:30,height:30 , borderRadius:'100%'}}/></Link>
+        <Image source={icons.logo} style={{width:50,height:50 }}/>
+        </View>
+        <View>
+          <Text style={{color:'white' , fontSize:25 , fontWeight:'bold' , marginVertical:20}}>Welcome to Fruit Trace <Image source={icons.Hi} style={{width:30 , height:30}}/></Text>
+          <Text style={{color:'gray' , fontSize:13}}>Eat What You Know And Stay Safe{'  '}:);</Text>
+        </View>
+        <View style={{marginVertical:20,flexDirection:'row' , alignItems:'center' , gap:20}}>
+          <Link href={'/camera'} style={{color:'white' , backgroundColor:'white' , borderWidth:1,borderColor:'white',borderStyle:'solid' , borderRadius:20,padding:10}}><Image source={icons.camera} style={{width:30,height:30}}/></Link>
+          <Link href={'/upload'} style={{color:'white' , backgroundColor:'white' , borderWidth:1,borderColor:'white',borderStyle:'solid' , borderRadius:20,padding:10}}><Image source={icons.upload} style={{width:30,height:30}}/></Link>
+        </View>
       </View>
-      <InputSection/>
-    </View>
+      <ScrollView style={{flex:1}}>
+        <Text style={{fontSize:20 , color:'white' , fontWeight:'bold' , paddingHorizontal:5}}>Know More About Fruits{'  '}<Image source={icons.apple} style={{width:30,height:30, }}/></Text>
+        <Card name={'blueBerry'} imageUrl={images.blue_berry}/>
+        <Card name={'Strawberry'} imageUrl={images.strawberry}/>
+        <Card name={'Kiwi'} imageUrl={images.kiwi}/>
+        <Card name={'Apple'} imageUrl={images.apples}/>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
-
 
 
 const style = StyleSheet.create({
@@ -29,33 +49,17 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  cardStyle:{
-    padding: 15,
-    flexDirection: 'row',
-    paddingHorizontal: 50,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    // backgroundColor: '#F5F5DC',
-    backgroundColor: '#F3E5AB',
-    justifyContent:'space-between'
-  },
   historyIcon:{
-    width: 50,
-    height: 50
+    width: 40,
+    height: 40
   },
   AppName:{
-    color: 'white',
     fontSize: 25,
-    fontWeight: 'bold',
   },
   sectionView:{
+    height: '100%',
     padding: 15,
     borderRadius: 40,
     backgroundColor: "#ddd",
   },
-  textStyle:{
-    paddingTop: 18,
-    fontSize: 25,
-    fontWeight: 'bold'
-  }
 })

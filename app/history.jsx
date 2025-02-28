@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
 import React from 'react'
 import ArrowName from '@/components/ui/Arrow&Name'
 
-const historyPage = () => {
+const history = () => {
   return (
     <View style={styles.main}>
       <ArrowName name="History"/>
@@ -17,7 +17,7 @@ const historyPage = () => {
   )
 }
 
-export default historyPage
+export default history
 
 
 const renderHistory = fruitData.map((item) => (
