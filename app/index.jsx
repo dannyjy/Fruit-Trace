@@ -1,45 +1,23 @@
-import { Text, View, Image, StyleSheet,FlatList } from "react-native";
-import { Animated } from "react-native";
-import Card from '../components/ui/card'
-import menu from '@/assets/images/favicon.png'
-import { fruitData } from "@/components/data";
-import InputData from "@/components/InputData";
+import { Text, View, Image, StyleSheet } from "react-native";
+import history from '@/assets/images/history-svgrepo-com.png';
+import InputSection from "@/components/InputSection";
+import { Link } from "expo-router";
+
 
 export default function Index() {
   return (
-    <View>
-      <View style={{paddingHorizontal: 15}} >
-        <View style={style.second}>
-          <Image source={menu} style={style.historyIcon}/>
-          <Text style={style.AppName}>FruitTrace</Text>
-        </View>
-        <InputData/>
+    <View style={{flex: 1,backgroundColor: '#0E0D0A'}}>
+      <View style={style.second}>
+        <Text style={style.AppName}>FruitTrace</Text>
+        <Link href="/historyPage">
+          <Image source={history} style={style.historyIcon}/>
+        </Link>
       </View>
-      <View style={style.sectionView}>
-        <View>
-          <Text style={{paddingTop: 18,fontSize: 25}}>Just Uploaded</Text>
-          <Card 
-          imageUrl="assets/images/fruit/kewe.jpg" 
-          name="Kewe" 
-          details="Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quo saepe sint, cum iure sequi dolores labore eos esse quisquam cupiditate repellendus reiciendis deserunt temporibus incidunt praesentium adipisci laboriosam beatae."
-          />
-        </View>
-        <Text style={{paddingTop: 18,fontSize: 25}}>Exiting Data</Text>
-        <FlatList
-          data={fruitData}
-          renderItem={({item}) =>(
-            <Card
-            name={item.name}
-            details={item.description}
-            imageUrl={item.image}
-            />
-          )}
-          keyExtractor={(item) => item.id}
-          />
-      </View>
+      <InputSection/>
     </View>
   );
 }
+
 
 
 const style = StyleSheet.create({
@@ -51,17 +29,33 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  cardStyle:{
+    padding: 15,
+    flexDirection: 'row',
+    paddingHorizontal: 50,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    // backgroundColor: '#F5F5DC',
+    backgroundColor: '#F3E5AB',
+    justifyContent:'space-between'
+  },
   historyIcon:{
-    width: 40,
-    height: 40
+    width: 50,
+    height: 50
   },
   AppName:{
+    color: 'white',
     fontSize: 25,
+    fontWeight: 'bold',
   },
   sectionView:{
-    height: '100%',
     padding: 15,
     borderRadius: 40,
     backgroundColor: "#ddd",
   },
+  textStyle:{
+    paddingTop: 18,
+    fontSize: 25,
+    fontWeight: 'bold'
+  }
 })

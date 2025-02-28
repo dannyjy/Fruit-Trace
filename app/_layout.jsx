@@ -1,5 +1,14 @@
-import { Slot } from "expo-router";
+import { Slot, Tabs } from "expo-router";
 
 export default function RootLayout() {
-  return <Slot />;
+  return (
+    <Slot>
+      <Tabs>
+        <Tabs.Screen name="index"/>
+        <Tabs.Screen name="historyPage" />
+        <Tabs.Screen name="Results"/>
+        <Tabs.Screen name="Explore"/>
+      </Tabs>
+    </Slot>
+  );
 }
