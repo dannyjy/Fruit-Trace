@@ -1,13 +1,10 @@
-import cv2
+import os
 from django.conf import settings
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
-from .models import UploadedImage
-from .ml_model.fruit import detect_and_classify, classify_fruit
-from .ml_model.object_detection import detect_fruits 
-from .ml_model.utils import crop_fruit_from_image
-
+from PIL import Image
+from .ml_model.Fruit import FruitDetector
 
 class ImageUploadView(APIView):
     parser_classes = (MultiPartParser, FormParser)
@@ -17,29 +14,38 @@ class ImageUploadView(APIView):
             return Response({"error": "No image provided"}, status=400)
 
         image_file = request.FILES['image']
-        uploaded_image = UploadedImage.objects.create(image=image_file)
 
-        image_path = uploaded_image.image.path
-        img = cv2.imread(image_path)
-        if img is None:
+        try:
+            Image.open(image_file).verify()
+            image_file.seek(0)
+        except Exception as e:
             return Response({"error": "Invalid image file"}, status=400)
 
-        results = detect_fruits(image_path)
+        image_path = os.path.join(settings.MEDIA_ROOT, image_file.name)
 
-        classification_results = []
-        for box in results:
-            x1, y1, x2, y2 = map(int, box)
-            cropped_fruit = crop_fruit_from_image(img, (x1, y1, x2, y2))
+        try:
+            with open(image_path, 'wb+') as destination:
+                for chunk in image_file.chunks():
+                    destination.write(chunk)
 
-            if cropped_fruit is None:
-                continue
+            print(f"Image saved at: {image_path}")
 
-            fruit_type = classify_fruit(cropped_fruit)
-            classification_results.append(fruit_type)
+            detector = FruitDetector(model_path='yolov8n.pt', classifier_model='fruit_model.h5')
 
-        final_result = "Edible" if "Not Edible" not in classification_results else "Not Edible"
+            print("FruitDetector initialized successfully")
 
-        return Response({
-            "message": final_result, 
-            "image_url": uploaded_image.image.url 
-        })
+            detection_result = detector.detect_fruits(image_path)
+
+            print(f"Detection result: {detection_result}")
+
+            return Response({
+                "message": "Image successfully uploaded and saved.",
+                "image_url": request.build_absolute_uri(settings.MEDIA_URL + image_file.name),
+                "detection_result": detection_result
+            })
+
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+
+            return Response({"error": f"Failed to process image: {str(e)}"}, status=500)

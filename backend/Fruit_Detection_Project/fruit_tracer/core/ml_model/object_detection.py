@@ -5,10 +5,7 @@ from PIL import Image
 class FruitDetector:
     def __init__(self, model_path='yolov8n.pt'):
         self.model = YOLO(model_path)
-        self.fruit_names = {
-            0: "apple",
-            47:"apple" 
-        }
+        self.fruit_names = {0: "apple", 1: "banana", 2: "guava", 3: "mango", 4: "watermelon"}
 
     def detect_fruits(self, image_path):
         img = Image.open(image_path)
@@ -16,12 +13,14 @@ class FruitDetector:
         boxes = []
         for result in results:
             for box in result.boxes:
-                x1, y1, x2, y2 = box.xyxy[0].tolist()
-                conf = box.conf.item()
                 label = int(box.cls.item())
-                fruit_name = self.fruit_names.get(label, "Unknown")
-                boxes.append([x1, y1, x2, y2, conf, label, fruit_name])
+                if label in self.fruit_names: 
+                    x1, y1, x2, y2 = box.xyxy[0].tolist()
+                    conf = box.conf.item()
+                    fruit_name = self.fruit_names[label]
+                    boxes.append([x1, y1, x2, y2, conf, label, fruit_name])
         return boxes
+
 
     def draw_boxes(self, image_path, boxes):
         img = cv2.imread(image_path)
