@@ -1,19 +1,22 @@
 import { Text, View, Image, StyleSheet, ScrollView} from "react-native";
-import Card from '../components/ui/card'
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Link } from "expo-router";
-
-//images
-import icons from "@/constants/icons";
+import apple from "@/assets/images/fruit/apple.jpg";
+import Card from '../components/ui/card'
 import images from '@/constants/images';
+import icons from "@/constants/icons";
+import { Link } from "expo-router";
+import { fruitData } from '../components/data';
+import { name } from './../node_modules/eslint/lib/rules/utils/ast-utils';
+
 const Index = () => {
   return (
-    <SafeAreaView style={{width:'100%' , height:'100%' , backgroundColor:'black'}}>
-      <View style={{paddingHorizontal: 15}} >
+    <SafeAreaView style={{width:'100%' , height:'100%' , backgroundColor:'black',paddingHorizontal: 15,paddingTop: 15}}>
+      <View>
         <View style={style.second}>
-        <Link href={'/history'} style={{color:'white' , backgroundColor:'white' , borderWidth:1,borderColor:'white',borderStyle:'solid' , borderRadius:20,padding:10}}>
-        <Image source={icons.history} style={{width:30,height:30 , borderRadius:10}}/></Link>
-        <Image source={icons.logo} style={{width:50,height:50 }}/>
+          <Link href={'/history'} style={{color:'white' , backgroundColor:'white' , borderWidth:1,borderColor:'white',borderStyle:'solid' , borderRadius:20,padding:10}}>
+            <Image source={icons.history} style={{width:30,height:30 , borderRadius:10}}/>
+          </Link>
+          <Image source={icons.logo} style={{width:50,height:50 }}/>
         </View>
         <View>
           <Text style={{color:'white' , fontSize:25 , fontWeight:'bold' , marginVertical:20}}>Welcome to Fruit Trace <Image source={icons.Hi} style={{width:30 , height:30}}/></Text>
@@ -26,14 +29,21 @@ const Index = () => {
       </View>
       <ScrollView style={{flex:1}}>
         <Text style={{fontSize:20 , color:'white' , fontWeight:'bold' , paddingHorizontal:5}}>Know More About Fruits{'  '}<Image source={icons.apple} style={{width:30,height:30, }}/></Text>
-        <Card name={'blueBerry'} imageUrl={images.blue_berry}/>
-        <Card name={'Strawberry'} imageUrl={images.strawberry}/>
-        <Card name={'Kiwi'} imageUrl={images.kiwi}/>
-        <Card name={'Apple'} imageUrl={images.apples}/>
+        {CardsArray}
       </ScrollView>
     </SafeAreaView>
   );
 }
+
+
+const CardsArray = fruitData.map((item) =>(
+  <Card
+    key={item.id}
+    imageUrl={item.image}
+    name={item.name}
+    details={item.description}
+  />
+))
 
 export default Index;
 

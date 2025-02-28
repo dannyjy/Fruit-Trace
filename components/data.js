@@ -8,7 +8,7 @@ export const fruitData = [
     {
         id: 1,
         image: Graps,
-        name: 'Graps',
+        name: 'Greps',
         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quo saepe sint, cum iure sequi dolores labore eos esse quisquam cupiditate repellendus reiciendis deserunt temporibus incidunt praesentium adipisci laboriosam beatae.',
     },{
         id: 2,
