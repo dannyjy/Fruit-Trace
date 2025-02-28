@@ -1,10 +1,10 @@
 import cv2
-from .object_detection import detect_fruits
-from .classification import classify_fruit
-from .utils import crop_fruit_from_image
+from object_detection import detect_fruits
+from classification import classify_fruit
+from utils import crop_fruit_from_image
 
 # Image path
-image_path = r"D:\hackathon\CodeXtremeHackathon\backend\Fruit_Detection_Project\fruit_tracer\media\fruit_images\000001.jpg"
+image_path = r"D:\hackathon\CodeXtremeHackathon\backend\Fruit_Detection_Project\fruit_tracer\media\fruit_images\done.jpg"
 
 def detect_and_classify(image_path):
 
