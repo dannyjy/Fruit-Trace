@@ -84,7 +84,7 @@ const index = () => {
       </View>
       <ScrollView>
         {image && (
-          <Image key={image} source={{ uri: image }} style={{ width: 300, height: 300, alignSelf: 'center' ,borderRadius:25}} />
+          <Image key={image} source={{ uri: image }} style={{ width: 300, height: 300, alignSelf: 'center' ,borderRadius: 25}} />
         )}
         
       </ScrollView>

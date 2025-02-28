@@ -11,7 +11,8 @@ const Index = () => {
     <SafeAreaView style={{width:'100%' , height:'100%' , backgroundColor:'black'}}>
       <View style={{paddingHorizontal: 15}} >
         <View style={style.second}>
-        <Link href={'/camera'} style={{color:'white' , backgroundColor:'white' , borderWidth:1,borderColor:'white',borderStyle:'solid' , borderRadius:20,padding:10}}><Image source={icons.history} style={{width:30,height:30 , borderRadius:'100%'}}/></Link>
+        <Link href={'/history'} style={{color:'white' , backgroundColor:'white' , borderWidth:1,borderColor:'white',borderStyle:'solid' , borderRadius:20,padding:10}}>
+        <Image source={icons.history} style={{width:30,height:30 , borderRadius:10}}/></Link>
         <Image source={icons.logo} style={{width:50,height:50 }}/>
         </View>
         <View>

@@ -1,6 +1,6 @@
 import HistoryCard from '@/components/ui/historyCard'
 import { fruitData } from '@/components/data'
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
 import ArrowName from '@/components/ui/Arrow&Name'
 

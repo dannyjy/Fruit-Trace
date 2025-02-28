@@ -58,7 +58,9 @@ export default function Camera() {
             <AntDesign name='camera' size={44} color='black' />
           </TouchableOpacity>
           <TouchableOpacity onPress={handleTakePhoto} >
-            <Link href={'/'} style={{marginLeft:-20}}><Image source={icons.arrow} style={{width:30, height:30,backgroundColor:'white' , borderRadius:'50%',padding:'7'}}/></Link>
+            <Link href={'/'} style={{marginLeft:-20}}>
+            <Image source={icons.arrow} style={{width:30, height:30,backgroundColor:'white' , borderRadius: 50,padding: 7}}/>
+            </Link>
           </TouchableOpacity>
         </View>
       </CameraView>
