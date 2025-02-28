@@ -1,14 +1,35 @@
 from ultralytics import YOLO
+import cv2
+from PIL import Image
 
-# Load YOLO model once
-Yolo_model = YOLO(r"yolov8n.pt")
+class FruitDetector:
+    def __init__(self, model_path='yolov8n.pt'):
+        self.model = YOLO(model_path)
+        self.fruit_names = {
+            0: "apple",
+            # Add more fruit names here, based on your model's classes.
+            # 1: "banana",
+            # 2: "orange",
+            47:"apple" #example based on your output.
+        }
 
-def detect_fruits(image_path):
-    results = Yolo_model.predict(image_path)
+    def detect_fruits(self, image_path):
+        img = Image.open(image_path)
+        results = self.model(img)
+        boxes = []
+        for result in results:
+            for box in result.boxes:
+                x1, y1, x2, y2 = box.xyxy[0].tolist()
+                conf = box.conf.item()
+                label = int(box.cls.item())
+                fruit_name = self.fruit_names.get(label, "Unknown")
+                boxes.append([x1, y1, x2, y2, conf, label, fruit_name])
+        return boxes
 
-    detected_boxes = []
-    for r in results:
-        for box in r.boxes.xyxy:
-            detected_boxes.append(box)
-
-    return detected_boxes  # Returns list of (x1, y1, x2, y2)
+    def draw_boxes(self, image_path, boxes):
+        img = cv2.imread(image_path)
+        for box in boxes:
+            x1, y1, x2, y2, conf, label, fruit_name = box
+            cv2.rectangle(img, (int(x1), int(y1)), (int(x2), int(y2)), (255, 0, 0), 2)
+            cv2.putText(img, f'{fruit_name} {conf:.2f}', (int(x1), int(y1) - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+        cv2.imwrite('detected_fruit.jpg', img)

@@ -1,0 +1,4 @@
+train: D:/hackathon/CodeXtremeHackathon/backend/Detection/fruit_dataset/images/train  
+val: D:/hackathon/CodeXtremeHackathon/backend/Detection/fruit_dataset/images/val  
+nc: 5  
+names: ["Apple", "Banana", "Guava", "Mango", "Watermelon"] 

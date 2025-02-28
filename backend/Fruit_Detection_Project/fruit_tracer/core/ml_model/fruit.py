@@ -1,31 +1,81 @@
+from ultralytics import YOLO
+from PIL import Image
 import cv2
-from object_detection import detect_fruits
-from classification import classify_fruit
-from utils import crop_fruit_from_image
+import numpy as np
+from utils import preprocess_image  # Import the preprocess_image function
+from classification import FruitClassifier  # Import the FruitClassifier class
+from utils import preprocess_image
 
-# Image path
-image_path = r"D:\hackathon\CodeXtremeHackathon\backend\Fruit_Detection_Project\fruit_tracer\media\fruit_images\done.jpg"
+class FruitDetector:
+    def __init__(self, model_path='yolov8n.pt'):
+        # Load the YOLOv8 model
+        self.model = YOLO(model_path)
 
-def detect_and_classify(image_path):
+    def detect_fruits(self, image_path):
+        # Load the image
+        img = Image.open(image_path)
+        
+        # Perform detection
+        results = self.model(img)
+        
+        # Show results (optional)
+        for result in results:
+            result.show()  # Display each result
+        
+        # Get bounding boxes, labels, and confidences
+        boxes = []
+        for result in results:
+            for box in result.boxes:
+                x1, y1, x2, y2 = box.xyxy[0].tolist()  # Bounding box coordinates
+                conf = box.conf.item()  # Confidence score
+                label = int(box.cls.item())  # Class label
+                boxes.append([x1, y1, x2, y2, conf, label])
+        
+        return boxes
 
-    img = cv2.imread(image_path)
-    results = detect_fruits(image_path)
+    def draw_boxes(self, image_path, boxes):
+        # Read image
+        img = cv2.imread(image_path)
+        
+        # Loop through each detection and draw a bounding box
+        for box in boxes:
+            x1, y1, x2, y2, conf, label = box
+            cv2.rectangle(img, (int(x1), int(y1)), (int(x2), int(y2)), (255, 0, 0), 2)
+            cv2.putText(img, f'Class {label} {conf:.2f}', (int(x1), int(y1) - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+        
+        # Save the image with boxes
+        cv2.imwrite('detected_fruit.jpg', img)
 
-    for box in results:
-        x1, y1, x2, y2 = map(int, box)
-        cropped_fruit = crop_fruit_from_image(img, (x1, y1, x2, y2)) 
-
-        if cropped_fruit is None:
-            continue
-
-        fruit_type = classify_fruit(cropped_fruit)
-
-        cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
-        cv2.putText(img, fruit_type, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
-
-    cv2.imshow("Fruit Detection and Classification", img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-
+# Example usage
 if __name__ == "__main__":
-    detect_and_classify(image_path)
+    # Provide the correct path to the image
+    image_path = r'000001.jpg'
+    
+    # Initialize the detector
+    detector = FruitDetector(model_path='yolov8n.pt')
+    
+    # Detect fruits in the image
+    boxes = detector.detect_fruits(image_path)
+    
+    # Print detection results
+    print("Detection Results:")
+    for i, box in enumerate(boxes):
+        x1, y1, x2, y2, conf, label = box
+        print(f"Fruit {i + 1}: Class {label}, Confidence {conf:.2f}, Bounding Box [{x1}, {y1}, {x2}, {y2}]")
+    print("\nClassification Results:---------------------------done1 ---------------------------------------------------------")
+    # Draw bounding boxes on the image
+    detector.draw_boxes(image_path, boxes)
+    print("\nClassification Results:---------------------------done2 ---------------------------------------------------------")
+    # Preprocess the image for classification
+    cropped_image = preprocess_image(image_path)
+    print("\nClassification Results:---------------------------done3 ---------------------------------------------------------")
+    # Initialize the classifier
+    classifier = FruitClassifier(model_path='fruit_model.h5')
+    
+    print("\nClassification Results:---------------------------done 4---------------------------------------------------------")
+    # Classify the fruit
+    
+    print(classifier.classify_fruit(image_path))
+    # Print classification results
+    print("\nClassification Results:------------------------------------------------------------------------------------")
+    
