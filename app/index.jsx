@@ -1,4 +1,4 @@
-import { Text, View, Image, StyleSheet, ScrollView} from "react-native";
+import { Text, View, Image, StyleSheet, ScrollView, TouchableOpacity} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import apple from "@/assets/images/fruit/apple.jpg";
 import Card from '../components/ui/card'
@@ -8,14 +8,12 @@ import { Link } from "expo-router";
 import { fruitData } from '../components/data';
 import { name } from './../node_modules/eslint/lib/rules/utils/ast-utils';
 
-const Index = () => {
+const Index = ({navigation}) => {
   return (
     <SafeAreaView style={{width:'100%' , height:'100%' , backgroundColor:'black',paddingHorizontal: 15,paddingTop: 15}}>
       <View>
         <View style={style.second}>
-          <Link href={'/history'} style={{color:'white' , backgroundColor:'white' , borderWidth:1,borderColor:'white',borderStyle:'solid' , borderRadius:20,padding:10}}>
-            <Image source={icons.history} style={{width:30,height:30 , borderRadius:10}}/>
-          </Link>
+        <TouchableOpacity style={{color:'white' , backgroundColor:'white' , borderWidth:1,borderColor:'white',borderStyle:'solid' , borderRadius:20,padding:10}} onPress={() => navigation.navigate("History")}><Image source={icons.history} style={{width:30,height:30 , borderRadius:10}}/></TouchableOpacity>
           <Image source={icons.logo} style={{width:50,height:50 }}/>
         </View>
         <View>
@@ -23,8 +21,7 @@ const Index = () => {
           <Text style={{color:'gray' , fontSize:13}}>Eat What You Know And Stay Safe{'  '}:);</Text>
         </View>
         <View style={{marginVertical:20,flexDirection:'row' , alignItems:'center' , gap:20}}>
-          <Link href={'/camera'} style={{color:'white' , backgroundColor:'white' , borderWidth:1,borderColor:'white',borderStyle:'solid' , borderRadius:20,padding:10}}><Image source={icons.camera} style={{width:30,height:30}}/></Link>
-          <Link href={'/upload'} style={{color:'white' , backgroundColor:'white' , borderWidth:1,borderColor:'white',borderStyle:'solid' , borderRadius:20,padding:10}}><Image source={icons.upload} style={{width:30,height:30}}/></Link>
+          <Link href={'/upload'} style={{color:'white' , marginLeft:8, backgroundColor:'white' , borderWidth:1,borderColor:'white',borderStyle:'solid' , borderRadius:20,padding:10}}><Image source={icons.upload} style={{width:30,height:30}}/></Link>
         </View>
       </View>
       <ScrollView style={{flex:1}}>

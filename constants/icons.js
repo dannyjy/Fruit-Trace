@@ -5,6 +5,8 @@ import history from '../assets/images/history.png'
 import apple from '../assets/images/apple.png'
 import logo from '../assets/images/logo.png'
 import arrow from '../assets/images/arrow.png'
+import Right from '../assets/images/true.png'
+import Wrong from '../assets/images/wrong.png'
 
 
 
@@ -15,5 +17,7 @@ export default {
     history,
     apple,
     logo,
-    arrow
+    arrow,
+    Right,
+    Wrong
 }

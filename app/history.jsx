@@ -3,17 +3,18 @@ import { fruitData } from '@/components/data'
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
 import ArrowName from '@/components/ui/Arrow&Name'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const history = () => {
   return (
-    <View style={styles.main}>
+    <SafeAreaView style={styles.main}>
       <ArrowName name="History"/>
       <ScrollView>
         <View style={{gap: 10,}}>
           {renderHistory}
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   )
 }
 

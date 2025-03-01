@@ -37,7 +37,7 @@ const style = StyleSheet.create({
     },
     description:{
         color: '#777',
-        fontSize: 13,
+        fontSize: 18,
         paddingVertical: 20,
         overflow:"hidden"
     },
