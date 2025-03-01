@@ -37,7 +37,7 @@ class FruitDetector:
         print(f"Image with bounding boxes saved at: {output_path}")
 
 if __name__ == "__main__":
-    image_path = r'000001.jpg'
+    image_path = r'00001.jpg'
     detector = FruitDetector(model_path='yolov8n.pt')
 
     result = detector.detect_fruits(image_path)
